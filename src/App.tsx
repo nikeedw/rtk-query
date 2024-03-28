@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "./hooks/redux";
+import { fetchUsers } from "./store/reducers/ActionCreators";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const dispatch = useAppDispatch();
+	const {users, isLoading, error} = useAppSelector(state => state.userReducer)
+
+	useEffect(() => {
+		dispatch(fetchUsers());
+	}, [])
+
+	if(isLoading) {
+		return <h1>Loading...</h1>
+	}
+
+	if(error) {
+		return <h1>{error}</h1>
+	}
+
+	return (
+		<div className="App">
+			{/* {JSON.stringify(users, null, 2)} */}
+			{users.map(user =>
+				<div key={user.id} className="item">
+					{user.id} - {user.name}
+				</div>	
+			)}
+		</div>
+	);
 }
 
 export default App;
