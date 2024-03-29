@@ -14,6 +14,8 @@
 	padding: 10px;
 	border: 2px solid teal;
 	min-width: 400px;
+	display: flex;
+	justify-content: space-between;
 }
 .posts {
 	width: 100%;
@@ -30,4 +32,12 @@
 button {
 	padding: 5px 15px;
 	cursor: pointer;
+}
+.Application {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-block: 30px;
+	gap: 10px;
+	width: 100%;
 }
